@@ -1,0 +1,440 @@
+:root {
+    --fondo-fuera: #333;
+    --fondo-app: #E3E3E3;
+    --tarjeta: rgba(255, 255, 255, 0.7);
+    --texto: #000;
+    --morado: #7323A6;
+    --morado-claro: #DAC4E0;
+    --fondo-nav: #FFFFFF;
+    --gris: #CCCCCC;
+    font-size: 150%;
+}
+
+body.modo-oscuro {
+    --fondo-app: #121212;
+    --tarjeta: #1E1E1E;
+    --texto: #FFFFFF;
+    --morado-claro: #3D2B4D;
+    --fondo-nav: #1A1A1A;
+    --gris: #444;
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body {
+    background-color: var(--fondo-fuera);
+    color: var(--texto);
+    font-family: 'Julius Sans One', sans-serif;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    transition: background 0.3s ease;
+}
+
+.contenedor-principal {
+    width: 100%;
+    background-color: var(--fondo-app);
+    padding: 2rem 12%; 
+    padding-bottom: 8rem; 
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.iconos-cabecera { 
+    display: flex; 
+    gap: 2.5rem; 
+    align-items: center; 
+}
+
+/* Animación campana */
+.iconos-cabecera .icono-accion:nth-child(2):hover {
+    animation: temblar 0.3s ease-in-out infinite;
+}
+
+@keyframes temblar {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(15deg); }
+    75% { transform: rotate(-15deg); }
+}
+
+.icono-accion { 
+    cursor: pointer; 
+    font-size: 1.2rem; 
+    transition: transform 0.2s ease; 
+}
+.barra-menu { 
+    height: 2px; 
+    width: 1.5rem; 
+    background: var(--texto); 
+    margin-bottom: 0.3rem; 
+}
+
+.saludo h1 { 
+    font-family: 'Judson', serif; 
+    font-size: 1.8rem; 
+    margin-bottom: 1.5rem; 
+}
+
+/* WIDGET CLIMA */
+.tarjeta-clima {
+    background: var(--tarjeta);
+    border-radius: 1.5rem;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+    display: flex; 
+    flex-direction: column;
+}
+
+.clima-cabecera {
+    text-align: left;
+    width: 100%;
+}
+
+.titulo-tiempo { 
+    font-size: 0.6rem; 
+    letter-spacing: 2px; 
+    opacity: 0.7; 
+}
+.ciudad { 
+    font-size: 0.9rem; 
+    font-weight: bold; 
+    margin-bottom: 0.5rem; 
+}
+
+.clima-principal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 0.1rem;
+}
+
+.temp-grande { 
+    font-size: 3.5rem; 
+    font-weight: 300; 
+}
+
+.max-min-caja {
+    border: 1px solid var(--texto);
+    border-radius: 0.8rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.5rem;
+    line-height: 1.4;
+    background: transparent;
+}
+
+.estado-cielo { 
+    font-size: 0.6rem; 
+    font-style: italic; 
+    margin-bottom: 1rem; 
+    text-align: left;
+    width: 100%;
+}
+
+.clima-detalles-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+    border: 1px solid var(--texto);
+    border-radius: 1.2rem;
+    padding: 1rem;
+    background: transparent;
+}
+
+.dato span { 
+    font-size: 0.5rem; 
+    text-transform: uppercase; 
+    opacity: 0.6; 
+    display: block; 
+}
+.dato p { 
+    font-size: 0.7rem; 
+    font-weight: bold; 
+}
+
+.rejilla-controles {
+    display: grid;
+    grid-template-columns: 1fr; 
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.sub-widget {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around; 
+    background: var(--tarjeta);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    max-width: 300px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.titulo-w { 
+    font-size: 0.9rem; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+    letter-spacing: 1.5px; 
+}
+
+.fila-w { 
+    display: flex; 
+    justify-content: space-between; 
+    width: 100%; 
+    align-items: center; 
+}
+
+/* Interruptores y Termostato */
+.interruptor { 
+    transform: scale(1.2); 
+    cursor: pointer; 
+    position: relative; 
+    width: 2.2rem; 
+    height: 1.1rem; 
+}
+
+.interruptor input { 
+    opacity: 0; 
+    width: 0; 
+    height: 0; 
+}
+.deslizador { 
+    position: absolute; 
+    inset: 0; 
+    background: var(--gris); 
+    border-radius: 2rem; 
+    transition: 0.4s; 
+}
+
+.deslizador:before { 
+    position: absolute; 
+    content: ""; 
+    height: 0.9rem; 
+    width: 0.9rem; 
+    left: 0.1rem; 
+    bottom: 0.1rem; 
+    background: #FFF; 
+    border-radius: 50%; 
+    transition: 0.4s; 
+}
+
+input:checked + .deslizador { 
+    background: var(--morado); 
+}
+
+input:checked + .deslizador:before { 
+    transform: translateX(1.1rem); 
+}
+
+.termostato input, .numero-ajuste div, .control-botones label { 
+    display: none; 
+}
+#t3:checked ~ .control-botones label[for="t2"], #t2:checked ~ .control-botones label[for="t1"] { display: block; order: 1; }
+#t1:checked ~ .control-botones .n1, #t2:checked ~ .control-botones .n2, #t3:checked ~ .control-botones .n3 { display: block; }
+#t1:checked ~ .control-botones label[for="t2"], #t2:checked ~ .control-botones label[for="t3"] { display: block; order: 3; }
+
+.control-botones {
+    background: var(--morado-claro);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    display: flex; 
+    gap: 1rem; 
+    align-items: center;
+}
+.btn-adj { 
+    cursor: pointer; 
+    color: var(--morado); 
+    font-weight: bold; 
+    font-size: 1.2rem; 
+}
+
+.icono-grande { 
+    font-size: 4rem; 
+}
+
+/* CÁMARAS */
+.seccion-camaras {
+    background: var(--tarjeta);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.rejilla-camaras { 
+    display: grid; 
+    grid-template-columns: 1fr; 
+    gap: 1.5rem; 
+    margin-top: 1rem; 
+}
+
+.cam { 
+    aspect-ratio: 16 / 9; 
+    border-radius: 1rem; 
+    overflow: hidden; 
+    background: #000; 
+}
+
+.cam img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+}
+
+/* --- NAVEGACIÓN --- */
+.navegacion {
+    position: fixed; 
+    bottom: 1.5rem; 
+    left: 50%; 
+    transform: translateX(-50%);
+    width: 80%; 
+    max-width: 25rem; 
+    height: 4.5rem; 
+    background: var(--fondo-nav);
+    display: flex; 
+    justify-content: space-around; 
+    align-items: center;
+    border-radius: 2.5rem; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+    z-index: 1000;
+}
+.nav-item { 
+    text-align: center; 
+    color: var(--gris); 
+    cursor: pointer; 
+    font-size: 0.65rem;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.nav-item:hover { 
+    color: var(--morado); 
+    transform: scale(1.2) translateY(-5px); 
+}
+.nav-item.activo { 
+    color: var(--morado); 
+}
+.nav-item p {
+    margin-top: 0.2rem; 
+    font-weight: bold; 
+}
+
+/* TABLET */
+@media (min-width: 48rem) {
+    .contenedor-principal { 
+        display: grid; 
+        grid-template-columns: 1fr 1fr; 
+        gap: 2rem; 
+        padding: 2rem 5%; 
+    }
+    .cabecera, .saludo, .tarjeta-clima, .rejilla-controles, .seccion-camaras, .navegacion { 
+        grid-column: span 2; 
+    }
+    .rejilla-controles, .rejilla-camaras { 
+        grid-template-columns: 1fr 1fr; 
+    }
+    .sub-widget { 
+        max-width: none; 
+        margin: auto; 
+    }
+    .max-min-caja{
+        height: 80%;
+        width: 50%;
+    }
+    .max-min-caja p{
+        font-size: large;
+        word-spacing: 280%;
+    }
+}
+
+/* ORDENADOR */
+@media (min-width: 64rem) {
+    .contenedor-principal {
+        display: grid;
+        grid-template-columns: 1fr 1fr; 
+        grid-template-areas: "header header" "saludo saludo" "widgets tiempo" "camaras camaras";
+        gap: 3rem; 
+        padding: 3rem 8%;
+        font-size: 110%;
+        /* Centrado vertical de los widgets dentro de sus áreas */
+        align-items: center; 
+    }
+    .cabecera { 
+        grid-area: header; 
+    }
+    .saludo { 
+        grid-area: saludo; 
+        height: fit-content; 
+    }
+    
+    .rejilla-controles { 
+        grid-area: widgets; 
+        grid-template-columns: 1fr 1fr; 
+        height: auto;
+    }
+    
+    .sub-widget {
+        height: auto;
+        max-width: none;
+    }
+    
+    .tarjeta-clima { 
+        grid-area: tiempo; 
+        height: auto; 
+        width: 100%;
+        margin-bottom: 0;
+        justify-content: center;
+        padding: 2.5rem;
+    }
+    
+    .clima-principal {
+        justify-content: space-between;
+    }
+
+    .temp-grande { 
+        font-size: 5rem; 
+    }
+    
+    .titulo-tiempo { 
+        font-size: 0.9rem; 
+    }
+    .ciudad { 
+        font-size: 1.2rem; 
+    }
+    .estado-cielo { 
+        font-size: 1.2rem; 
+    }
+    .dato p { 
+        font-size: 1.1rem; 
+    }
+    .dato span { 
+        font-size: 0.7rem; 
+    }
+
+    .seccion-camaras {
+        grid-area: camaras; 
+        height: fit-content; 
+    }
+    .rejilla-camaras { 
+        grid-template-columns: repeat(4, 1fr); 
+        margin-top: 2rem; 
+    }
+    .interruptor { 
+        transform: scale(1.4); 
+    }
+    .titulo-w{ 
+        font-size: 1.2rem; 
+    }
+}

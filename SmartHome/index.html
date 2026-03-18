@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Judson&family=Julius+Sans+One&display=swap" rel="stylesheet">
+</head>
+<body class="tema-claro">
+
+    <main class="contenedor-principal">
+        <header class="cabecera">
+            <div class="boton-menu">
+                <div class="barra-menu"></div>
+                <div class="barra-menu"></div>
+                <div class="barra-menu"></div>
+            </div>
+            <div class="iconos-cabecera">
+                <div id="interruptor-tema" class="icono-accion">🌙</div>
+                <div class="icono-accion">🔔</div>
+                <div class="icono-accion">⋮</div>
+            </div>
+        </header>
+
+        <section class="saludo">
+            <h1>Buenas tardes, Usuario</h1>
+        </section>
+
+        <div class="widget tarjeta-clima">
+    <div class="clima-cabecera">
+        <p class="ciudad">TIEMPO EXTERIOR</p>
+        <p class="titulo-tiempo">SEVILLA, ESPAÑA</p>
+    </div>
+
+    <div class="clima-principal">
+        <div class="temp-grande">34°C</div>
+        <div class="max-min-caja">
+            <p>MÁXIMA 40°C</p>
+            <p>MÍNIMA 14°C</p>
+        </div>
+    </div>
+
+    <p class="estado-cielo">Prácticamente nublado</p>
+
+    <div class="clima-detalles-grid">
+        <div class="dato">
+            <p>Humedad</p>
+            <span>82 %</span>
+        </div>
+        <div class="dato">
+            <p>Presión</p>
+            <span>1035 hPa</span>
+        </div>
+        <div class="dato">
+            <p>Índice UV</p>
+            <span>14</span>
+        </div>
+        <div class="dato">
+            <p>Puesta del sol</p>
+            <span>19:37</span>
+        </div>
+    </div>
+</div>
+
+        <div class="rejilla-controles">
+            
+            <div class="widget sub-widget">
+                <p class="titulo-w">LUCES</p>
+                <div class="fila-w">
+                    <div>SALON</div>
+                    <label class="interruptor">
+                        <input type="checkbox" checked>
+                        <div class="deslizador"></div>
+                    </label>
+                </div>
+                <div class="fila-w">
+                    <div>COCINA</div>
+                    <label class="interruptor">
+                        <input type="checkbox">
+                        <div class="deslizador"></div>
+                    </label>
+                </div>
+                <div class="fila-w">
+                    <div>DORMITORIO</div>
+                    <label class="interruptor">
+                        <input type="checkbox">
+                        <div class="deslizador"></div>
+                    </label>
+                </div>
+                <div class="fila-w">
+                    <div>COMEDOR</div>
+                    <label class="interruptor">
+                        <input type="checkbox">
+                        <div class="deslizador"></div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="widget sub-widget termostato">
+                <p class="titulo-w">TEMPERATURA</p>
+                <input type="radio" name="temp" id="t1">
+                <input type="radio" name="temp" id="t2" checked>
+                <input type="radio" name="temp" id="t3">
+                
+                <div class="control-botones">
+                    <label for="t1" class="btn-adj">-</label>
+                    <label for="t2" class="btn-adj">-</label>
+                    
+                    <div class="numero-ajuste">
+                        <div class="n1">1</div>
+                        <div class="n2">2</div>
+                        <div class="n3">3</div>
+                    </div>
+
+                    <label for="t2" class="btn-adj">+</label>
+                    <label for="t3" class="btn-adj">+</label>
+                </div>
+            </div>
+
+            <div class="widget sub-widget">
+                <p class="titulo-w">ALTAVOZ</p>
+                <div class="icono-grande">🔊</div>
+            </div>
+
+            <div class="widget sub-widget">
+                <p class="titulo-w">PUERTA</p>
+                <label class="interruptor">
+                    <input type="checkbox">
+                    <div class="deslizador"></div>
+                </label>
+            </div>
+        </div>
+
+        <section class="widget seccion-camaras">
+            <p class="titulo-w">CÁMARAS</p>
+            <div class="rejilla-camaras">
+                <div class="cam hueco-img"><img src="fotos/camara1.png" alt=""></div>
+                <div class="cam hueco-img"><img src="fotos/camara2.png" alt=""></div>
+                <div class="cam hueco-img"><img src="fotos/camara3.png" alt=""></div>
+                <div class="cam hueco-img"><img src="fotos/camara4.png" alt=""></div>
+            </div>
+        </section>
+<!-- Menú -->
+        <nav class="navegacion">
+            <div class="nav-item activo"><div>🏠</div><p>Home</p></div>
+            <div class="nav-item"><div>📅</div><p>Dispositivos</p></div>
+            <div class="nav-item"><div>⚡</div><p>Widgets</p></div>
+            <div class="nav-item"><div>⚙️</div><p>Ajustes</p></div>
+        </nav>
+    </main>
+<!-- Parte encargada del cambio de tema oscuro/claro -->
+    <script>
+        const btn = document.getElementById('interruptor-tema');
+        btn.addEventListener('click', () => {
+            document.body.classList.toggle('modo-oscuro');
+            btn.textContent = document.body.classList.contains('modo-oscuro') ? '☀️' : '🌙';
+        });
+    </script>
+</body>
+</html>
