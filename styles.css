@@ -1,409 +1,438 @@
+/* ============================================================
+   VARIABLES — 3 capas: primitivas → semánticas → componentes
+   ============================================================ */
 :root {
-    --fondo-fuera: #333;
-    --fondo-app: #E3E3E3;
-    --tarjeta: rgba(255, 255, 255, 0.7);
-    --texto: #000;
-    --morado: #7323A6;
-    --morado-claro: #DAC4E0;
-    --fondo-nav: #FFFFFF;
-    --gris: #CCCCCC;
+    /* Capa 1: Primitivas */
+    --clr-purple-900: #1a0a2e;  --clr-purple-700: #4a1a7a;
+    --clr-purple-500: #7323A6;  --clr-purple-300: #a259d4;
+    --clr-purple-100: #DAC4E0;
+    --clr-neutral-900: #111;    --clr-neutral-800: #1E1E1E;
+    --clr-neutral-700: #2a2a2a; --clr-neutral-600: #444;
+    --clr-neutral-400: #888;    --clr-neutral-200: #CCC;
+    --clr-neutral-100: #E3E3E3; --clr-white: #FFF;
+    --clr-green: #4ade80;
+
+    /* Capa 2: Semánticas — modo claro */
+    --color-fondo-pagina:   var(--clr-neutral-200);
+    --color-fondo-app:      var(--clr-neutral-100);
+    --color-superficie:     rgba(255,255,255,0.7);
+    --color-borde:          rgba(0,0,0,0.08);
+    --color-texto:          #0a0a0a;
+    --color-texto-sec:      var(--clr-neutral-600);
+    --color-texto-muted:    var(--clr-neutral-400);
+    --color-acento:         var(--clr-purple-500);
+    --color-acento-claro:   var(--clr-purple-100);
+    --color-acento-oscuro:  var(--clr-purple-700);
+    --color-exito:          var(--clr-green);
+    --color-nav-fondo:      var(--clr-white);
+    --color-toggle-off:     var(--clr-neutral-200);
+
+    /* Capa 3: Componentes */
+    --widget-fondo:   var(--color-superficie);
+    --widget-borde:   1px solid var(--color-borde);
+    --widget-radio:   1.5rem;
+    --widget-padding: 1.2rem;
+
+    /* Utilidades */
+    --r-sm: 0.5rem;   --r-md: 1rem;
+    --r-lg: 1.5rem;   --r-full: 9999rem;
+    --shadow-sm: 0 0.1rem 0.4rem rgba(0,0,0,0.07);
+    --shadow-lg: 0 0.8rem 2.5rem rgba(0,0,0,0.18);
+    --t-fast: 0.15s ease;  --t-normal: 0.3s ease;
+    --t-bounce: 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
+
+    /* Tipografía — todo rem */
+    --fs-2xs: 0.55rem;  --fs-xs: 0.65rem;  --fs-sm: 0.75rem;
+    --fs-md:  1.125rem; --fs-lg: 1.5rem;   --fs-xl: 2rem;
+    --fs-2xl: 3rem;     --fs-3xl: 4rem;
+
     font-size: 150%;
 }
 
-body.modo-oscuro {
-    --fondo-app: #121212;
-    --tarjeta: #1E1E1E;
-    --texto: #FFFFFF;
-    --morado-claro: #3D2B4D;
-    --fondo-nav: #1A1A1A;
-    --gris: #444;
+/* Modo oscuro — solo semánticas */
+.tema-input:checked ~ .contenedor-principal {
+    --color-fondo-app:    var(--clr-neutral-900);
+    --color-superficie:   var(--clr-neutral-800);
+    --color-borde:        rgba(255,255,255,0.09);
+    --color-texto:        var(--clr-white);
+    --color-texto-sec:    var(--clr-neutral-400);
+    --color-texto-muted:  var(--clr-neutral-600);
+    --color-acento-claro: var(--clr-purple-900);
+    --color-acento-oscuro:var(--clr-purple-300);
+    --color-nav-fondo:    var(--clr-neutral-800);
+    --color-toggle-off:   var(--clr-neutral-700);
 }
+/* Nav es fixed, necesita selector propio para modo oscuro */
+.tema-input:checked ~ .contenedor-principal .navegacion {
+    background: var(--clr-neutral-800);
+    border-color: rgba(255,255,255,0.09);
+}
+.tema-input:checked ~ .contenedor-principal .nav-item       { color: var(--clr-neutral-400); }
+.tema-input:checked ~ .contenedor-principal .nav-item.activo{ color: var(--clr-purple-300); }
 
-* { 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
-}
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+img { display: block; width: 100%; height: 100%; object-fit: cover; }
+ul  { list-style: none; }
+
+.tema-input { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
 
 body {
-    background-color: var(--fondo-fuera);
-    color: var(--texto);
+    background: var(--color-fondo-pagina);
     font-family: 'Julius Sans One', sans-serif;
     display: flex;
     justify-content: center;
     min-height: 100vh;
-    transition: background 0.3s ease;
 }
 
+/* ============================================================
+   CONTENEDOR (Mobile First)
+   ============================================================ */
 .contenedor-principal {
     width: 100%;
-    background-color: var(--fondo-app);
-    padding: 2rem 12%; 
-    padding-bottom: 8rem; 
+    background: var(--color-fondo-app);
+    color: var(--color-texto);
+    padding: 1.5rem 6% 8rem;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    gap: 1.25rem;
+    transition: background var(--t-normal), color var(--t-normal);
 }
 
-.cabecera {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-}
+/* ============================================================
+   CABECERA
+   ============================================================ */
+.cabecera { display: flex; justify-content: space-between; align-items: center; }
 
-.iconos-cabecera { 
-    display: flex; 
-    gap: 2.5rem; 
-    align-items: center; 
-}
+.boton-menu { cursor: pointer; display: flex; flex-direction: column; gap: 0.3em; }
+.barra-menu { display: block; height: 0.125rem; width: 1.5rem; background: var(--color-texto); border-radius: var(--r-full); transition: background var(--t-normal); }
 
-.iconos-cabecera .icono-accion:nth-child(2):hover {
-    animation: temblar 0.3s ease-in-out infinite;
-}
+.iconos-cabecera { display: flex; gap: 1.5rem; align-items: center; }
 
+.icono-accion { cursor: pointer; font-size: var(--fs-md); line-height: 1; transition: transform var(--t-bounce); }
+.icono-accion:hover { transform: scale(1.2); }
+
+.icono-tema  { display: flex; align-items: center; }
+.icono-luna  { display: block; }
+.icono-sol   { display: none; }
+.tema-input:checked ~ .contenedor-principal .icono-luna { display: none; }
+.tema-input:checked ~ .contenedor-principal .icono-sol  { display: block; }
+
+.campana:hover { animation: temblar 0.4s ease-in-out infinite; }
 @keyframes temblar {
     0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(15deg); }
-    75% { transform: rotate(-15deg); }
+    25%  { transform: rotate(18deg); }
+    75%  { transform: rotate(-18deg); }
 }
 
-.icono-accion { 
-    cursor: pointer; 
-    font-size: 1.2rem; 
-    transition: transform 0.2s ease; 
+/* ============================================================
+   SALUDO
+   ============================================================ */
+.saludo-fecha {
+    font-size: var(--fs-xs);
+    color: var(--color-texto-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 0.2rem;
 }
-.barra-menu { 
-    height: 2px; 
-    width: 1.5rem; 
-    background: var(--texto); 
-    margin-bottom: 0.3rem; 
+.saludo h1   { font-family: 'Judson', serif; font-size: var(--fs-lg); font-weight: 700; line-height: 1.2; }
+.saludo-nombre { color: var(--color-acento); }
+.saludo-estado { display: flex; align-items: center; gap: 0.4em; font-size: var(--fs-xs); color: var(--color-texto-sec); margin-top: 0.3rem; }
+
+.estado-punto {
+    display: inline-block;
+    width: 0.5em; height: 0.5em;
+    background: var(--color-exito);
+    border-radius: var(--r-full);
+    animation: pulso 2s ease-in-out infinite;
+}
+@keyframes pulso { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+/* ============================================================
+   WIDGET BASE
+   ============================================================ */
+.widget {
+    background: var(--widget-fondo);
+    border: var(--widget-borde);
+    border-radius: var(--widget-radio);
+    padding: var(--widget-padding);
+    box-shadow: var(--shadow-sm);
+    transition: background var(--t-normal), border-color var(--t-normal), color var(--t-normal);
+}
+.titulo-w {
+    font-size: var(--fs-sm);
+    font-weight: bold;
+    letter-spacing: 0.14em;
+    color: var(--color-texto-muted);
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
 }
 
-.saludo h1 { 
-    font-family: 'Judson', serif; 
-    font-size: 1.8rem; 
-    margin-bottom: 1.5rem; 
-}
-
-/* WIDGET CLIMA */
+/* ============================================================
+   CLIMA — grid horizontal en móvil/tablet, flex vertical en escritorio
+   ============================================================ */
 .tarjeta-clima {
-    background: var(--tarjeta);
-    border-radius: 1.5rem;
-    padding: 1.5rem 2rem;
-    margin-bottom: 1.5rem;
-    display: flex; 
-    flex-direction: column;
-}
-
-.clima-cabecera {
-    text-align: left;
-    width: 100%;
-}
-
-.titulo-tiempo { 
-    font-size: 0.6rem; 
-    letter-spacing: 2px; 
-    opacity: 0.7; 
-}
-.ciudad { 
-    font-size: 0.9rem; 
-    font-weight: bold; 
-    margin-bottom: 0.5rem; 
-}
-
-.clima-principal {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    margin-bottom: 0.1rem;
-}
-
-.temp-grande { 
-    font-size: 3.5rem; 
-    font-weight: 300; 
-}
-
-.max-min-caja {
-    border: 1px solid var(--texto);
-    border-radius: 0.8rem;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.5rem;
-    line-height: 1.4;
-    background: transparent;
-}
-
-.estado-cielo { 
-    font-size: 0.6rem; 
-    font-style: italic; 
-    margin-bottom: 1rem; 
-    text-align: left;
-    width: 100%;
-}
-
-.clima-detalles-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0.8rem;
-    border: 1px solid var(--texto);
-    border-radius: 1.2rem;
-    padding: 1rem;
-    background: transparent;
+    grid-template-areas: "cab principal" "cielo principal" "detalles detalles";
+    gap: 0.5rem 1rem;
+    align-items: start;
 }
+.clima-cabecera     { grid-area: cab; display: flex; justify-content: space-between; align-items: flex-start; }
+.clima-principal    { grid-area: principal; justify-self: end; align-self: center; display: flex; flex-direction: column; align-items: flex-end; gap: 0.4rem; }
+.estado-cielo       { grid-area: cielo; font-size: var(--fs-xs); font-style: italic; color: var(--color-texto-sec); align-self: start; }
+.clima-detalles-grid{ grid-area: detalles; display: grid; grid-template-columns: repeat(2,1fr); gap: 0.6rem; border: 1px solid var(--color-borde); border-radius: var(--r-md); padding: 0.8rem; }
 
-.dato span { 
-    font-size: 0.5rem; 
-    text-transform: uppercase; 
-    opacity: 0.6; 
-    display: block; 
-}
-.dato p { 
-    font-size: 0.7rem; 
-    font-weight: bold; 
-}
+.ciudad       { font-size: var(--fs-sm); font-weight: bold; letter-spacing: 0.1em; }
+.titulo-tiempo{ font-size: var(--fs-2xs); letter-spacing: 0.15em; color: var(--color-texto-muted); margin-top: 0.15rem; }
+.clima-emoji  { font-size: var(--fs-xl); line-height: 1; }
+.temp-grande  { font-size: var(--fs-3xl); font-weight: 300; line-height: 1; font-family: 'Judson', serif; }
+.max-min-caja { border: 1px solid var(--color-borde); border-radius: var(--r-md); padding: 0.4rem 0.8rem; font-size: var(--fs-xs); line-height: 1.8; }
+.dato p       { font-size: var(--fs-sm); font-weight: bold; }
+.dato span    { font-size: var(--fs-2xs); color: var(--color-texto-muted); display: block; margin-top: 0.1rem; text-transform: uppercase; letter-spacing: 0.08em; }
 
+/* ============================================================
+   REJILLA CONTROLES — 2×2 en móvil
+   ============================================================ */
 .rejilla-controles {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.8rem;
-    margin-bottom: 1.5rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
 }
-
 .sub-widget {
-    aspect-ratio: 1 / 1;
-    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    background: var(--tarjeta);
-    border-radius: 1.2rem;
-    padding: 0.7rem;
-    box-sizing: border-box;
-    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    padding: 1.2rem;
 }
 
-/* --- AJUSTE DE CONTENIDO ADAPTABLE --- */
-.titulo-w { 
-    font-size: 0.7rem; 
-    font-weight: bold;
-    margin-bottom: 0.2rem;
+/* ============================================================
+   TOGGLE (interruptores)
+   ============================================================ */
+.interruptor { position: relative; width: 2.4rem; height: 1.2rem; cursor: pointer; flex-shrink: 0; }
+.interruptor input { opacity: 0; width: 0; height: 0; position: absolute; }
+.deslizador {
+    position: absolute; inset: 0;
+    background: var(--color-toggle-off);
+    border-radius: var(--r-full);
+    transition: background var(--t-normal);
+}
+.deslizador::before {
+    content: ''; position: absolute;
+    width: 0.9rem; height: 0.9rem;
+    left: 0.15rem; top: 50%;
+    transform: translateY(-50%);
+    background: var(--clr-white);
+    border-radius: 50%;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--t-normal);
+}
+.interruptor input:checked + .deslizador                { background: var(--color-acento); }
+.interruptor input:checked + .deslizador::before        { transform: translateY(-50%) translateX(1.2rem); }
+
+.interruptor--grande { width: 3.2rem; height: 1.6rem; }
+.interruptor--grande .deslizador::before                { width: 1.2rem; height: 1.2rem; }
+.interruptor--grande input:checked + .deslizador::before{ transform: translateY(-50%) translateX(1.6rem); }
+
+/* ============================================================
+   LUCES
+   ============================================================ */
+.fila-w     { display: flex; justify-content: space-between; width: 100%; align-items: center; font-size: var(--fs-xs); }
+.luz-label  { display: flex; align-items: center; gap: 0.5em; }
+.luz-dot    { display: inline-block; width: 0.45em; height: 0.45em; border-radius: var(--r-full); background: var(--color-toggle-off); transition: background var(--t-normal); }
+.luz-dot.luz-on { background: var(--color-acento); }
+
+/* ============================================================
+   TERMOSTATO (CSS puro, sin JS)
+   ============================================================ */
+.termostato  { gap: 0.6rem; }
+.temp-radio  { display: none; }
+
+.temp-display{ display: flex; align-items: baseline; justify-content: center; gap: 0.15em; }
+.temp-num    { display: none; font-family: 'Judson', serif; font-size: var(--fs-2xl); color: var(--color-acento); line-height: 1; font-weight: 700; }
+.temp-unit   { font-size: var(--fs-sm); color: var(--color-texto-muted); align-self: flex-start; padding-top: 0.3em; }
+
+#t1:checked ~ .temp-display .n1, #t2:checked ~ .temp-display .n2,
+#t3:checked ~ .temp-display .n3, #t4:checked ~ .temp-display .n4,
+#t5:checked ~ .temp-display .n5 { display: block; }
+
+.temp-dots  { display: flex; gap: 0.4em; justify-content: center; }
+.temp-dot   { width: 0.45em; height: 0.45em; border-radius: var(--r-full); background: var(--color-toggle-off); cursor: pointer; transition: background var(--t-fast), transform var(--t-fast); }
+.temp-dot:hover { transform: scale(1.4); }
+
+#t1:checked ~ .temp-dots label:nth-child(1), #t2:checked ~ .temp-dots label:nth-child(2),
+#t3:checked ~ .temp-dots label:nth-child(3), #t4:checked ~ .temp-dots label:nth-child(4),
+#t5:checked ~ .temp-dots label:nth-child(5) { background: var(--color-acento); transform: scale(1.3); }
+
+.control-botones { background: var(--color-acento-claro); padding: 0.4rem 0.8rem; border-radius: var(--r-full); display: flex; gap: 0.8rem; align-items: center; transition: background var(--t-normal); }
+.btn-adj         { cursor: pointer; color: var(--color-acento); font-weight: bold; font-size: var(--fs-lg); line-height: 1; transition: transform var(--t-fast), color var(--t-fast); display: none; }
+.btn-adj:hover   { transform: scale(1.3); color: var(--color-acento-oscuro); }
+.numero-ajuste   { font-size: var(--fs-sm); font-weight: bold; color: var(--color-texto); }
+.numero-ajuste div { display: none; }
+
+#t2:checked ~ .control-botones .b-t2.btn-menos,
+#t3:checked ~ .control-botones .b-t3.btn-menos,
+#t4:checked ~ .control-botones .b-t4.btn-menos,
+#t5:checked ~ .control-botones .b-t5.btn-menos { display: block; order: 1; }
+
+#t1:checked ~ .control-botones .n1, #t2:checked ~ .control-botones .n2,
+#t3:checked ~ .control-botones .n3, #t4:checked ~ .control-botones .n4,
+#t5:checked ~ .control-botones .n5 { display: block; order: 2; }
+
+#t1:checked ~ .control-botones .b-t1.btn-mas,
+#t2:checked ~ .control-botones .b-t2.btn-mas,
+#t3:checked ~ .control-botones .b-t3.btn-mas,
+#t4:checked ~ .control-botones .b-t4.btn-mas { display: block; order: 3; }
+
+/* ============================================================
+   ALTAVOZ
+   ============================================================ */
+.altavoz-icono   { font-size: var(--fs-xl); line-height: 1; }
+.altavoz-info    { text-align: center; }
+.altavoz-cancion { font-size: var(--fs-sm); font-weight: bold; color: var(--color-texto); }
+.altavoz-artista { font-size: var(--fs-xs); color: var(--color-texto-muted); font-style: italic; }
+
+.altavoz-volumen { display: flex; align-items: center; gap: 0.4em; width: 100%; }
+.vol-label       { font-size: var(--fs-sm); flex-shrink: 0; }
+.vol-track       { flex: 1; }
+.vol-slider {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 0.25rem;
+    background: var(--color-borde);
+    border-radius: var(--r-full);
+    outline: none; cursor: pointer;
+    accent-color: var(--color-acento);
+}
+.vol-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 0.9rem; height: 0.9rem;
+    background: var(--color-acento);
+    border-radius: 50%; cursor: pointer;
+    transition: transform var(--t-fast);
+}
+.vol-slider::-webkit-slider-thumb:hover { transform: scale(1.3); }
+.vol-slider::-moz-range-thumb { width: 0.9rem; height: 0.9rem; background: var(--color-acento); border: none; border-radius: 50%; cursor: pointer; }
+
+/* ============================================================
+   PUERTA
+   ============================================================ */
+.puerta-widget      { gap: 0.7rem; }
+.puerta-iconos      { font-size: var(--fs-2xl); line-height: 1; }
+.puerta-abierta-ico { display: none; }
+.puerta-widget:has(.puerta-check:checked) .puerta-cerrada-ico { display: none; }
+.puerta-widget:has(.puerta-check:checked) .puerta-abierta-ico { display: block; }
+
+.puerta-txt         { font-size: var(--fs-xs); color: var(--color-texto-sec); text-align: center; }
+.puerta-txt--abierta{ display: none; }
+.puerta-widget:has(.puerta-check:checked) .puerta-txt--cerrada { display: none; }
+.puerta-widget:has(.puerta-check:checked) .puerta-txt--abierta { display: block; color: var(--color-acento); }
+
+/* ============================================================
+   CÁMARAS
+   ============================================================ */
+.camaras-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.8rem; }
+.badge-live     { font-size: var(--fs-xs); color: var(--color-exito); font-weight: bold; letter-spacing: 0.06em; }
+
+.rejilla-camaras {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 11rem), 1fr));
+    gap: 0.75rem;
+}
+.cam { position: relative; aspect-ratio: 16/9; border-radius: var(--r-md); overflow: hidden; background: #000; border: var(--widget-borde); }
+.cam img             { opacity: 0.85; transition: opacity var(--t-normal); }
+.cam:hover img       { opacity: 1; }
+.cam-label {
+    position: absolute; bottom: 0.4rem; left: 0.5rem;
+    font-size: var(--fs-2xs); color: var(--clr-white);
+    background: rgba(0,0,0,0.5); padding: 0.15em 0.5em;
+    border-radius: var(--r-sm); text-transform: uppercase;
+    letter-spacing: 0.06em; backdrop-filter: blur(0.2rem);
 }
 
-.fila-w { 
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
-    font-size: 0.5rem;
-    gap: 0.2rem;
-}
-
-.fila-w div:first-child {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 55%;
-}
-
-/* --- INTERRUPTORES (Ajustados para no pisar texto) --- */
-.interruptor { 
-    cursor: pointer; 
-    position: relative; 
-    width: 1.8rem;  
-    height: 1rem; 
-    transform: scale(0.9); 
-    transform-origin: right center;
-    flex-shrink: 0; 
-}
-
-.interruptor input { 
-    opacity: 0; 
-    width: 0; 
-    height: 0; 
-}
-
-.deslizador { 
-    position: absolute; 
-    inset: 0; 
-    background: var(--gris); 
-    border-radius: 2rem; 
-    transition: 0.4s; 
-}
-
-.deslizador:before { 
-    position: absolute; 
-    content: ""; 
-    height: 0.8rem; 
-    width: 0.8rem; 
-    left: 0.1rem; 
-    bottom: 0.1rem; 
-    background: #FFF; 
-    border-radius: 50%; 
-    transition: 0.4s; 
-}
-
-input:checked + .deslizador { 
-    background: var(--morado); 
-}
-
-input:checked + .deslizador:before { 
-    transform: translateX(0.8rem); 
-}
-
-/* --- TERMOSTATO Y BOTONES --- */
-.termostato input, .numero-ajuste div, .control-botones label { 
-    display: none; 
-}
-#t3:checked ~ .control-botones label[for="t2"], #t2:checked ~ .control-botones label[for="t1"] { display: block; order: 1; }
-#t1:checked ~ .control-botones .n1, #t2:checked ~ .control-botones .n2, #t3:checked ~ .control-botones .n3 { display: block; }
-#t1:checked ~ .control-botones label[for="t2"], #t2:checked ~ .control-botones label[for="t3"] { display: block; order: 3; }
-
-.control-botones {
-    background: var(--morado-claro);
-    padding: 0.3rem 0.6rem;
-    border-radius: 2rem;
-    display: flex; 
-    gap: 1rem; 
-    align-items: center;
-    transform: scale(0.8);
-    width: 100%;
-    max-width: 9rem;
-}
-
-.btn-adj { 
-    cursor: pointer; 
-    color: var(--morado); 
-    font-weight: bold; 
-    font-size: 0.9rem; 
-}
-
-.icono-grande { 
-    font-size: 2.2rem; 
-}
-
-/* CÁMARAS */
-.seccion-camaras {
-    background: var(--tarjeta);
-    border-radius: 1.5rem;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.rejilla-camaras { 
-    display: grid; 
-    grid-template-columns: 1fr; 
-    gap: 1.5rem; 
-    margin-top: 1rem; 
-}
-
-.cam { 
-    aspect-ratio: 16 / 9; 
-    border-radius: 1rem; 
-    overflow: hidden; 
-    background: #000; 
-}
-
-.cam img { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: cover; 
-}
-
-/* --- NAVEGACIÓN --- */
+/* ============================================================
+   NAVEGACIÓN
+   ============================================================ */
 .navegacion {
-    position: fixed; 
-    bottom: 1.5rem; 
-    left: 50%; 
-    transform: translateX(-50%);
-    width: 80%; 
-    max-width: 25rem; 
-    height: 4.5rem; 
-    background: var(--fondo-nav);
-    display: flex; 
-    justify-content: space-around; 
-    align-items: center;
-    border-radius: 2.5rem; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+    position: fixed; bottom: 1.25rem; left: 50%; transform: translateX(-50%);
+    width: 80%; max-width: 22rem;
+    background: var(--color-nav-fondo);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--r-full);
+    box-shadow: var(--shadow-lg);
+    display: flex; justify-content: space-around; align-items: center;
+    padding: 0.6rem 0.5rem;
     z-index: 1000;
+    transition: background var(--t-normal), border-color var(--t-normal);
 }
-.nav-item { 
-    text-align: center; 
-    color: var(--gris); 
-    cursor: pointer; 
-    font-size: 0.65rem;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.nav-item:hover { 
-    color: var(--morado); 
-    transform: scale(1.2) translateY(-5px); 
-}
-.nav-item.activo { 
-    color: var(--morado); 
-}
-.nav-item p {
-    margin-top: 0.2rem; 
-    font-weight: bold; 
-}
+.nav-item       { text-align: center; color: var(--clr-neutral-400); cursor: pointer; font-size: var(--fs-xs); transition: color var(--t-bounce), transform var(--t-bounce); }
+.nav-item:hover { color: var(--color-acento); transform: scale(1.15) translateY(-0.2rem); }
+.nav-item.activo{ color: var(--color-acento); }
+.nav-item p     { margin-top: 0.15rem; font-weight: bold; }
 
-/* TABLET */
+/* ============================================================
+   MEDIA QUERIES — solo min-width (Mobile First)
+   ============================================================ */
+
+/* Tablet */
 @media (min-width: 48rem) {
-    .contenedor-principal { 
-        display: grid; 
-        grid-template-columns: 1fr 1fr; 
-        gap: 2rem; 
-        padding: 2rem 5%; 
-    }
-    .cabecera, .saludo, .tarjeta-clima, .rejilla-controles, .seccion-camaras, .navegacion { 
-        grid-column: span 2; 
-    }
-    .rejilla-controles, .rejilla-camaras { 
-        grid-template-columns: 1fr 1fr; 
-    }
-    .sub-widget { 
-        max-width: none; 
-        margin: auto; 
-    }
-    .max-min-caja{
-        height: 80%;
-        width: 50%;
-    }
-    .max-min-caja p{
-        font-size: large;
-        word-spacing: 280%;
-    }
+    .contenedor-principal   { padding: 2rem 5% 8rem; }
+    .saludo h1              { font-size: var(--fs-xl); }
+    .clima-detalles-grid    { grid-template-columns: repeat(4, 1fr); }
+    .rejilla-controles      { grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: 1.25rem; }
+    .rejilla-camaras        { grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr)); }
+    .navegacion             { max-width: 28rem; }
 }
 
-/* ORDENADOR */
+/* Escritorio */
 @media (min-width: 64rem) {
+    :root { font-size: 115%; }
+
     .contenedor-principal {
+        max-width: 92rem;
         display: grid;
-        grid-template-columns: 1fr 1fr; 
-        grid-template-areas: "header header" "saludo saludo" "widgets tiempo" "camaras camaras";
-        gap: 3rem; 
-        padding: 3rem 8%;
-        font-size: 110%;
-        align-items: center; 
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "header  header"
+            "saludo  saludo"
+            "widgets tiempo"
+            "camaras tiempo";
+        column-gap: 2rem; row-gap: 1.5rem;
+        padding: 2.5rem 5% 6rem;
+        align-items: start;
     }
-    .cabecera { grid-area: header; }
-    .saludo { grid-area: saludo; height: fit-content; }
-    
-    .rejilla-controles { 
-        grid-area: widgets; 
-        grid-template-columns: 1fr 1fr; 
+    .cabecera           { grid-area: header; }
+    .saludo             { grid-area: saludo; }
+    .rejilla-controles  { grid-area: widgets; }
+    .seccion-camaras    { grid-area: camaras; }
+
+    /* Clima: vertical a la derecha */
+    .tarjeta-clima {
+        grid-area: tiempo;
+        display: flex; flex-direction: column;
+        gap: 0.9rem; height: 100%;
+        justify-content: space-between;
     }
-    
-    .tarjeta-clima { 
-        grid-area: tiempo; 
-        height: auto; 
-        width: 100%;
-        justify-content: center;
-        padding: 2.5rem;
-    }
-    
-    .temp-grande { font-size: 5rem; }
-    .interruptor { transform: scale(1.4); }
-    .titulo-w{ font-size: 1.2rem; }
-    .icono-grande { font-size: 4rem; }
+    .tarjeta-clima .clima-principal    { flex-direction: row; align-items: center; justify-content: space-between; }
+    .tarjeta-clima .clima-detalles-grid{ grid-template-columns: repeat(2,1fr); margin-top: auto; }
+
+    .saludo h1          { font-size: var(--fs-xl); }
+    .temp-grande        { font-size: var(--fs-2xl); }
+
+    .rejilla-controles  { grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr)); gap: 1rem; }
+    .sub-widget         { aspect-ratio: unset; min-height: 11rem; justify-content: flex-start; gap: 0.65rem; }
+    .rejilla-camaras    { grid-template-columns: repeat(auto-fill, minmax(min(100%, 11rem), 1fr)); gap: 0.6rem; }
+    .navegacion         { bottom: 1.5rem; max-width: 30rem; }
+    .interruptor        { transform: scale(1.1); }
+}
+
+/* Pantallas muy grandes */
+@media (min-width: 90rem) {
+    :root { font-size: 125%; }
+    .contenedor-principal { padding: 3rem 7% 6rem; }
+    .rejilla-controles    { grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr)); }
 }

@@ -5,11 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Home</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Judson&family=Julius+Sans+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Judson:ital@0;1&family=Julius+Sans+One&display=swap" rel="stylesheet">
 </head>
-<body class="tema-claro">
+<body>
+
+    <!-- Checkbox oculto que controla el tema oscuro/claro sin JS -->
+    <input type="checkbox" id="tema-toggle" class="tema-input">
 
     <main class="contenedor-principal">
+
         <header class="cabecera">
             <div class="boton-menu">
                 <div class="barra-menu"></div>
@@ -17,145 +21,189 @@
                 <div class="barra-menu"></div>
             </div>
             <div class="iconos-cabecera">
-                <div id="interruptor-tema" class="icono-accion">🌙</div>
-                <div class="icono-accion">🔔</div>
+                <label for="tema-toggle" class="icono-accion icono-tema">
+                    <span class="icono-luna">🌙</span>
+                    <span class="icono-sol">☀️</span>
+                </label>
+                <div class="icono-accion campana">🔔</div>
                 <div class="icono-accion">⋮</div>
             </div>
         </header>
 
         <section class="saludo">
-            <h1>Buenas tardes, Usuario</h1>
+            <p class="saludo-fecha">Lunes, 23 de marzo</p>
+            <h1>Buenas tardes, <span class="saludo-nombre">Usuario</span></h1>
+            <p class="saludo-estado"><span class="estado-punto"></span>4 dispositivos activos</p>
         </section>
 
+        <!-- CLIMA -->
         <div class="widget tarjeta-clima">
-    <div class="clima-cabecera">
-        <p class="ciudad">TIEMPO EXTERIOR</p>
-        <p class="titulo-tiempo">SEVILLA, ESPAÑA</p>
-    </div>
+            <div class="clima-cabecera">
+                <div>
+                    <p class="ciudad">TIEMPO EXTERIOR</p>
+                    <p class="titulo-tiempo">SEVILLA, ESPAÑA</p>
+                </div>
+                <span class="clima-emoji">🌤️</span>
+            </div>
+            <div class="clima-principal">
+                <div class="temp-grande">24°C</div>
+                <div class="max-min-caja">
+                    <p>↑ MÁX &nbsp;30°C</p>
+                    <p>↓ MÍN &nbsp;14°C</p>
+                </div>
+            </div>
+            <p class="estado-cielo">Parcialmente nublado</p>
+            <div class="clima-detalles-grid">
+                <div class="dato"><p>Humedad</p><span>82%</span></div>
+                <div class="dato"><p>Presión</p><span>1035 hPa</span></div>
+                <div class="dato"><p>Índice UV</p><span>14</span></div>
+                <div class="dato"><p>Puesta sol</p><span>19:37</span></div>
+            </div>
+        </div>
 
-    <div class="clima-principal">
-        <div class="temp-grande">34°C</div>
-        <div class="max-min-caja">
-            <p>MÁXIMA 40°C</p>
-            <p>MÍNIMA 14°C</p>
-        </div>
-    </div>
-
-    <p class="estado-cielo">Prácticamente nublado</p>
-
-    <div class="clima-detalles-grid">
-        <div class="dato">
-            <p>Humedad</p>
-            <span>82 %</span>
-        </div>
-        <div class="dato">
-            <p>Presión</p>
-            <span>1035 hPa</span>
-        </div>
-        <div class="dato">
-            <p>Índice UV</p>
-            <span>14</span>
-        </div>
-        <div class="dato">
-            <p>Puesta del sol</p>
-            <span>19:37</span>
-        </div>
-    </div>
-</div>
-
+        <!-- REJILLA CONTROLES -->
         <div class="rejilla-controles">
-            
+
+            <!-- LUCES -->
             <div class="widget sub-widget">
                 <p class="titulo-w">LUCES</p>
                 <div class="fila-w">
-                    <div>SALON</div>
-                    <label class="interruptor">
-                        <input type="checkbox" checked>
-                        <div class="deslizador"></div>
-                    </label>
+                    <div class="luz-label"><span class="luz-dot luz-on"></span>Salón</div>
+                    <label class="interruptor"><input type="checkbox" checked><div class="deslizador"></div></label>
                 </div>
                 <div class="fila-w">
-                    <div>COCINA</div>
-                    <label class="interruptor">
-                        <input type="checkbox">
-                        <div class="deslizador"></div>
-                    </label>
+                    <div class="luz-label"><span class="luz-dot"></span>Cocina</div>
+                    <label class="interruptor"><input type="checkbox"><div class="deslizador"></div></label>
                 </div>
                 <div class="fila-w">
-                    <div>DORMITORIO</div>
-                    <label class="interruptor">
-                        <input type="checkbox">
-                        <div class="deslizador"></div>
-                    </label>
+                    <div class="luz-label"><span class="luz-dot"></span>Dormitorio</div>
+                    <label class="interruptor"><input type="checkbox"><div class="deslizador"></div></label>
                 </div>
                 <div class="fila-w">
-                    <div>COMEDOR</div>
-                    <label class="interruptor">
-                        <input type="checkbox">
-                        <div class="deslizador"></div>
-                    </label>
+                    <div class="luz-label"><span class="luz-dot"></span>Comedor</div>
+                    <label class="interruptor"><input type="checkbox"><div class="deslizador"></div></label>
                 </div>
             </div>
 
+            <!-- TERMOSTATO -->
             <div class="widget sub-widget termostato">
                 <p class="titulo-w">TEMPERATURA</p>
-                <input type="radio" name="temp" id="t1">
-                <input type="radio" name="temp" id="t2" checked>
-                <input type="radio" name="temp" id="t3">
-                
+
+                <input type="radio" name="temp" id="t1" class="temp-radio">
+                <input type="radio" name="temp" id="t2" class="temp-radio">
+                <input type="radio" name="temp" id="t3" class="temp-radio" checked>
+                <input type="radio" name="temp" id="t4" class="temp-radio">
+                <input type="radio" name="temp" id="t5" class="temp-radio">
+
+                <!-- Número que se muestra según el radio activo -->
+                <div class="temp-display">
+                    <span class="temp-num n1">18°</span>
+                    <span class="temp-num n2">20°</span>
+                    <span class="temp-num n3">22°</span>
+                    <span class="temp-num n4">24°</span>
+                    <span class="temp-num n5">26°</span>
+                    <span class="temp-unit">C</span>
+                </div>
+
+                <!-- Puntitos indicadores -->
+                <div class="temp-dots">
+                    <label for="t1" class="temp-dot"></label>
+                    <label for="t2" class="temp-dot"></label>
+                    <label for="t3" class="temp-dot"></label>
+                    <label for="t4" class="temp-dot"></label>
+                    <label for="t5" class="temp-dot"></label>
+                </div>
+
                 <div class="control-botones">
-                    <label for="t1" class="btn-adj">-</label>
-                    <label for="t2" class="btn-adj">-</label>
-                    
+                    <!-- Botón menos: cada radio "activa" su propio label de bajar -->
+                    <label for="t1" class="btn-adj btn-menos b-t2">−</label>
+                    <label for="t2" class="btn-adj btn-menos b-t3">−</label>
+                    <label for="t3" class="btn-adj btn-menos b-t4">−</label>
+                    <label for="t4" class="btn-adj btn-menos b-t5">−</label>
+
                     <div class="numero-ajuste">
-                        <div class="n1">1</div>
-                        <div class="n2">2</div>
-                        <div class="n3">3</div>
+                        <div class="n1">18°</div>
+                        <div class="n2">20°</div>
+                        <div class="n3">22°</div>
+                        <div class="n4">24°</div>
+                        <div class="n5">26°</div>
                     </div>
 
-                    <label for="t2" class="btn-adj">+</label>
-                    <label for="t3" class="btn-adj">+</label>
+                    <!-- Botón mas -->
+                    <label for="t2" class="btn-adj btn-mas b-t1">+</label>
+                    <label for="t3" class="btn-adj btn-mas b-t2">+</label>
+                    <label for="t4" class="btn-adj btn-mas b-t3">+</label>
+                    <label for="t5" class="btn-adj btn-mas b-t4">+</label>
                 </div>
             </div>
 
-            <div class="widget sub-widget">
+            <!-- ALTAVOZ -->
+            <div class="widget sub-widget altavoz-widget">
                 <p class="titulo-w">ALTAVOZ</p>
-                <div class="icono-grande">🔊</div>
+                <div class="altavoz-icono">🔊</div>
+                <div class="altavoz-info">
+                    <p class="altavoz-cancion">Noche de Paz</p>
+                    <p class="altavoz-artista">La Radio del Sur</p>
+                </div>
+                <div class="altavoz-volumen">
+                    <span class="vol-label">🔈</span>
+                    <div class="vol-track">
+                        <input type="range" class="vol-slider" min="0" max="100" value="65">
+                    </div>
+                    <span class="vol-label">🔊</span>
+                </div>
             </div>
 
-            <div class="widget sub-widget">
+            <!-- PUERTA -->
+            <div class="widget sub-widget puerta-widget">
                 <p class="titulo-w">PUERTA</p>
-                <label class="interruptor">
-                    <input type="checkbox">
+                <div class="puerta-iconos">
+                    <span class="puerta-cerrada-ico">🔒</span>
+                    <span class="puerta-abierta-ico">🔓</span>
+                </div>
+                <label class="interruptor interruptor--grande">
+                    <input type="checkbox" class="puerta-check">
                     <div class="deslizador"></div>
                 </label>
+                <p class="puerta-txt puerta-txt--cerrada">Cerrada y segura</p>
+                <p class="puerta-txt puerta-txt--abierta">Acceso permitido</p>
             </div>
+
         </div>
 
+        <!-- CÁMARAS -->
         <section class="widget seccion-camaras">
-            <p class="titulo-w">CÁMARAS</p>
+            <div class="camaras-header">
+                <p class="titulo-w">CÁMARAS</p>
+                <span class="badge-live">● EN VIVO</span>
+            </div>
             <div class="rejilla-camaras">
-                <div class="cam hueco-img"><img src="fotos/camara1.png" alt=""></div>
-                <div class="cam hueco-img"><img src="fotos/camara2.png" alt=""></div>
-                <div class="cam hueco-img"><img src="fotos/camara3.png" alt=""></div>
-                <div class="cam hueco-img"><img src="fotos/camara4.png" alt=""></div>
+                <div class="cam hueco-img">
+                    <img src="fotos/camara1.png" alt="Cámara entrada">
+                    <span class="cam-label">Entrada</span>
+                </div>
+                <div class="cam hueco-img">
+                    <img src="fotos/camara2.png" alt="Cámara garaje">
+                    <span class="cam-label">Garaje</span>
+                </div>
+                <div class="cam hueco-img">
+                    <img src="fotos/camara3.png" alt="Cámara jardín">
+                    <span class="cam-label">Jardín</span>
+                </div>
+                <div class="cam hueco-img">
+                    <img src="fotos/camara4.png" alt="Cámara trasera">
+                    <span class="cam-label">Trasera</span>
+                </div>
             </div>
         </section>
-<!-- Menú -->
+
         <nav class="navegacion">
             <div class="nav-item activo"><div>🏠</div><p>Home</p></div>
             <div class="nav-item"><div>📅</div><p>Dispositivos</p></div>
             <div class="nav-item"><div>⚡</div><p>Widgets</p></div>
             <div class="nav-item"><div>⚙️</div><p>Ajustes</p></div>
         </nav>
+
     </main>
-<!-- Parte encargada del cambio de tema oscuro/claro -->
-    <script>
-        const btn = document.getElementById('interruptor-tema');
-        btn.addEventListener('click', () => {
-            document.body.classList.toggle('modo-oscuro');
-            btn.textContent = document.body.classList.contains('modo-oscuro') ? '☀️' : '🌙';
-        });
-    </script>
 </body>
 </html>
