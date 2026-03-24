@@ -225,7 +225,6 @@ body {
     grid-template-areas: "cab principal" "cielo principal" "detalles detalles";
     gap: 0.5rem 0.5rem;
 }
-
 .clima-cabecera {
     grid-area: cab;
 }
@@ -272,7 +271,6 @@ body {
     padding: 0.4rem 0.8rem;
     font-size: var(--letra-extra-pequena);
 }
-
 
 .rejilla-controles {
     display: grid;
@@ -356,7 +354,6 @@ body {
     transition: transform var(--tiempo-normal);
 }
 
-/* Colores según el estado y el tema */
 input:checked + .deslizador { 
     background: var(--color-circulo); 
 }
@@ -365,7 +362,7 @@ input:checked + .deslizador::before {
     transform: translateY(-50%) translateX(1.1rem);
 }
 
-/* Termostato */
+/*Widget temperatura*/
 .temp-radio {
     display: none;
 }
@@ -624,9 +621,31 @@ input:checked + .deslizador::before {
         gap: 2rem;
         padding: 3rem;
     }
+    .luz-label{
+        font-size: var(--letra-media);
+    }
+    .altavoz-cancion{
+        font-size: var(--letra-media);
+    }
+    .altavoz-autor{
+        font-size: var(--letra-extra-pequena);
+    }
+    .puerta-txt{
+        font-size: var(--letra-media);
+    }
+    .puerta-icono{
+        font-size: var(--letra-extra-grande);
+    }
+    .vol-label{
+        font-size: var(--letra-grande);
+    }
     .clima-principal {
         flex-direction: row;
         justify-content: space-between;
+    }
+    .interruptor {
+        transform: scale(1.2);
+        transform-origin: right;
     }
     .seccion-camaras {
         grid-area: camaras;
