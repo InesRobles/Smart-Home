@@ -6,7 +6,6 @@
     --morado-oscuro: #7323A6;
     --negro-oscuro: #111;
     --negro-claro: #1E1E1E;
-    --verde-exito: #4ade80;
 
     /* Colores modo claro */
     --color-fondo-pagina: var(--blanco-oscuro);
@@ -210,25 +209,6 @@ body {
     margin-top: 0.3rem;
 }
 
-.punto {
-    display: inline-block;
-    width: 0.5em;
-    height: 0.5em;
-    background: var(--verde-exito);
-    border-radius: var(--radio-circular);
-    animation: pulso 2s infinite;
-}
-
-@keyframes pulso {
-    0%,
-    100% {
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.3;
-    }
-}
-
 .widget {
     background: var(--color-superficie);
     border: 1px solid var(--color-borde);
@@ -246,7 +226,7 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas: "cab principal" "cielo principal" "detalles detalles";
-    gap: 0.5rem 1rem;
+    gap: 0.5rem 0.5rem;
 }
 
 .clima-cabecera {
@@ -404,30 +384,6 @@ input:checked + .deslizador::before {
     display: block;
 }
 
-.temp-dots {
-    display: flex;
-    gap: 0.4em;
-    justify-content: center;
-}
-
-.temp-dot {
-    width: 0.45em;
-    height: 0.45em;
-    border-radius: var(--radio-circular);
-    background: var(--color-toggle-off);
-    cursor: pointer;
-    transition: var(--tiempo-rapido);
-}
-
-#t1:checked~.temp-dots label:nth-child(1),
-#t2:checked~.temp-dots label:nth-child(2),
-#t3:checked~.temp-dots label:nth-child(3),
-#t4:checked~.temp-dots label:nth-child(4),
-#t5:checked~.temp-dots label:nth-child(5) {
-    background: var(--color-circulo);
-    transform: scale(1.3);
-}
-
 .control-botones {
     background: var(--color-circulo-claro);
     padding: 0.4rem 0.8rem;
@@ -479,7 +435,9 @@ input:checked + .deslizador::before {
     width: 100%; 
     padding: 0 0.5rem; /* Un poco de aire a los lados */
 }
-
+.altavoz-autor{
+    font-size: var(--letra-pequena);
+}
 /* El carril donde va el input */
 .vol-track { 
     flex: 1; /* Esto es la clave: hace que la barra ocupe todo el centro */
@@ -608,43 +566,46 @@ input:checked + .deslizador::before {
     }
 }
 
-/* Tamaño ordenador */
+/* Vista ordenador */
 @media (min-width: 64rem) {
-    .contenedor-principal {
+  .contenedor-principal {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        grid-template-areas: "header header" "saludo saludo" "widgets tiempo" "camaras tiempo";
+        grid-template-areas: "header header" "saludo saludo" "widgets tiempo" "camaras camaras";
         column-gap: 2rem;
+        align-items: start;
     }
-
+    .titulo-w {
+        grid-area: auto;
+        margin-bottom:10%;
+        font-size: var(--letra-grande);
+    }
     .cabecera {
         grid-area: header;
     }
-
-    .saludo {
+     .saludo {
         grid-area: saludo;
     }
-
-    .rejilla-controles {
-        grid-area: widgets;
-    }
-
-    .seccion-camaras {
-        grid-area: camaras;
-    }
-
     .tarjeta-clima {
         grid-area: tiempo;
-        height: 100%;
+        height: 100%; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2rem;
+        padding: 3rem;
+    }
+    .clima-principal {
+        flex-direction: row;
         justify-content: space-between;
     }
-
-    .rejilla-camaras {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .sub-widget {
-        aspect-ratio: unset;
-        min-height: 11rem;
+    .seccion-camaras {
+        grid-area: camaras;
+        width: 100%; 
+        height: min-content;
+        align-self: start;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
     }
 }

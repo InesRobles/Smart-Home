@@ -33,7 +33,6 @@
         <section class="saludo">
             <p class="saludo-fecha">Lunes, 23 de marzo</p>
             <h1>Buenas tardes, <span class="saludo-nombre">Usuario</span></h1>
-            <p class="saludo-dispositivos"><span class="punto"></span>4 dispositivos activos</p>
         </section>
 
         <!-- CLIMA -->
@@ -86,7 +85,7 @@
             </div>
 
             <!-- TERMOSTATO -->
-            <div class="widget sub-widget termostato">
+            <div class="widget sub-widget">
                 <p class="titulo-w">TEMPERATURA</p>
 
                 <input type="radio" name="temp" id="t1" class="temp-radio">
@@ -102,20 +101,11 @@
                     <span class="temp-num n3">22°</span>
                     <span class="temp-num n4">24°</span>
                     <span class="temp-num n5">26°</span>
-                    <span class="temp-unit">C</span>
-                </div>
-
-                <!-- Puntitos indicadores -->
-                <div class="temp-dots">
-                    <label for="t1" class="temp-dot"></label>
-                    <label for="t2" class="temp-dot"></label>
-                    <label for="t3" class="temp-dot"></label>
-                    <label for="t4" class="temp-dot"></label>
-                    <label for="t5" class="temp-dot"></label>
+                    <span>C</span>
                 </div>
 
                 <div class="control-botones">
-                    <!-- Botón menos: cada radio "activa" su propio label de bajar -->
+                    <!-- Botón menos-->
                     <label for="t1" class="btn-adj btn-menos b-t2">-</label>
                     <label for="t2" class="btn-adj btn-menos b-t3">-</label>
                     <label for="t3" class="btn-adj btn-menos b-t4">-</label>
@@ -130,12 +120,12 @@
                 </div>
             </div>
 
-            <!-- ALTAVOZ -->
+            <!-- Widget Altavoz-->
             <div class="widget sub-widget altavoz-widget">
                 <p class="titulo-w">ALTAVOZ</p>
                 <div class="altavoz-info">
                     <p class="altavoz-cancion">Iris</p>
-                    <p class="altavoz-cancion">The Goo Goo Dolls</p>
+                    <p class="altavoz-autor">The Goo Goo Dolls</p>
                 </div>
                 <div class="altavoz-volumen">
                     <span class="vol-label">🔈</span>
@@ -146,7 +136,7 @@
                 </div>
             </div>
 
-            <!-- PUERTA -->
+            <!--Widget puerta-->
             <div class="widget sub-widget puerta-widget">
                 <p class="titulo-w">PUERTA</p>
                 <div class="puerta-icono">
@@ -163,11 +153,11 @@
 
         </div>
 
-        <!-- CÁMARAS -->
+        <!--Widget cámaras-->
         <section class="widget seccion-camaras">
             <div class="camaras-header">
                 <p class="titulo-w">CÁMARAS</p>
-                <span class="enVivo">● EN VIVO</span>
+                <span class="enVivo" style="color:#4ade80;">● En vivo</span>
             </div>
             <div class="rejilla-camaras">
                 <div class="cam hueco-img">
