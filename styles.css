@@ -573,20 +573,42 @@ input:checked + .deslizador::before {
 }
 
 /* Tamaño tablet */
-@media (min-width: 48rem) {
+@media (min-width: 40rem) {
     .contenedor-principal {
         padding: 2rem 5% 8rem;
     }
-
     .saludo h1 {
         font-size: var(--letra-extra-grande);
     }
-
     .rejilla-controles {
         grid-template-columns: 1fr 1fr;
         gap: 1.25rem;
     }
-
+    .titulo-w{
+        font-size: var(--letra-grande);
+    }
+    .luz-label{
+        font-size: var(--letra-pequena);
+    }
+    .altavoz-cancion{
+        font-size: var(--letra-media);
+    }
+    .altavoz-autor{
+        font-size: var(--letra-extra-pequena);
+    }
+    .puerta-txt{
+        font-size: var(--letra-pequena);
+    }
+    .puerta-icono{
+        font-size: var(--letra-extra-grande);
+    }
+    .vol-label{
+        font-size: var(--letra-grande);
+    }
+    .interruptor {
+        transform: scale(1.2);
+        transform-origin: right;
+    }
     .clima-detalles-grid {
         grid-template-columns: repeat(4, 1fr);
     }
@@ -639,13 +661,13 @@ input:checked + .deslizador::before {
     .vol-label{
         font-size: var(--letra-grande);
     }
-    .clima-principal {
-        flex-direction: row;
-        justify-content: space-between;
-    }
     .interruptor {
         transform: scale(1.2);
         transform-origin: right;
+    }
+    .clima-principal {
+        flex-direction: row;
+        justify-content: space-between;
     }
     .seccion-camaras {
         grid-area: camaras;
