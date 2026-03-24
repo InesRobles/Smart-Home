@@ -311,50 +311,70 @@ body {
     aspect-ratio: 1/1;
     padding: 1.2rem;
 }
-.luz-label{
-    font-size: var(--letra-media);
-}
-.interruptor {
-    position: relative;
-    width: 2.4rem;
-    height: 1.2rem;
-    cursor: pointer;
+/* --- CONTENEDOR DE CADA FILA (Alineación Extrema) --- */
+.fila-w { 
+    display: flex; 
+    justify-content: space-between; /* Texto a la izquierda, botón a la derecha */
+    align-items: center; 
+    width: 100%; 
+    margin-bottom: 0.6rem; /* Espacio entre Salón, Cocina, etc. */
 }
 
-.interruptor input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-    position: absolute;
+/* --- TEXTO A LA IZQUIERDA --- */
+.luz-label { 
+    display: flex; 
+    align-items: center; 
+    gap: 0.5em; 
+    font-size: var(--letra-extra-pequena);
+    color: var(--color-texto);
+    letter-spacing: 0.5px;
+}
+
+/* --- DESLIZADOR A LA DERECHA --- */
+.interruptor { 
+    position: relative; 
+    width: 2.2rem; /* Tamaño fijo para que no se deforme */
+    height: 1.1rem; 
+    cursor: pointer; 
+    flex-shrink: 0; /* Evita que el botón se aplaste si el texto es largo */
+}
+
+.interruptor input { 
+    opacity: 0; 
+    width: 0; 
+    height: 0; 
+    position: absolute; 
 }
 
 .deslizador {
-    position: absolute;
+    position: absolute; 
     inset: 0;
-    background: var(--color-texto-muted);
+    background: var(--color-toggle-off);
     border-radius: var(--radio-circular);
-    transition: var(--tiempo-normal);
+    transition: background var(--tiempo-normal);
 }
 
 .deslizador::before {
-    content: '';
+    content: ''; 
     position: absolute;
-    width: 0.9rem;
-    height: 0.9rem;
-    left: 0.15rem;
+    width: 0.8rem; 
+    height: 0.8rem;
+    left: 0.15rem; 
     top: 50%;
     transform: translateY(-50%);
     background: white;
     border-radius: 50%;
-    transition: var(--tiempo-normal);
+    box-shadow: var(--sombra-suave);
+    transition: transform var(--tiempo-normal);
 }
 
-input:checked+.deslizador {
-    background: var(--color-circulo-oscuro);
+/* Colores según el estado y el tema */
+input:checked + .deslizador { 
+    background: var(--color-circulo); 
 }
 
-input:checked+.deslizador::before {
-    transform: translateY(-50%) translateX(1.2rem);
+input:checked + .deslizador::before { 
+    transform: translateY(-50%) translateX(1.1rem);
 }
 
 /* Termostato */
